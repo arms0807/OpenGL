@@ -47,3 +47,22 @@ VBO is like any object in OpenGL, having a unique ID corresponding to that buffe
 <br><b>Example</b>
 <br>unsigned int VBO;
 <br>glGenBuffers(1, &VBO);
+<br><br>
+OpenGL has many types of buffer objects. For he vertex buffer object is <b>GL_ARRAY_BUFFER</b>. We can useglBindBuffer function to bind the newly created buffer.
+<br><b>Example</b>
+<br>glBindBuffer(GL_ARRAY_BUFFER, VBO);
+<br><br>
+After the last step, we can use glBufferData function that copies the previously defined vertex data into the buffer's memory
+<br><b>Example</b>
+<br>glBufferData(GL_ARRAY_BUFFER, sizeof(vertices, vertices, GL_STATIC_DRAW);
+<br>
+glBufferData is a function specifically targeted to ccopy user-defined data into the currently bound buffer. 
+<br>The <b>first</b> argument is the type of the buffer we want to copy data into. 
+<br>The <b>second</b> argument specifies the size of the data( in bytes) we want to pass to the buffer. 
+<br>The <b>third</b> parameter is the actual data we want to send. 
+<br>The <b>fourth</b> parameter specifies how we want the graphics card to manage the given data. This take 3 forms:<br><b>GL_STATIC_DRAW</b>: the data will most likely not change at all or very rarely.<br><b>GL_DYNAMIC_DRAW</b>: the data is likely to change a lot.<br><b>GL_STREAM_DRAW</b>: the data will change every time it is drawn.
+<br> The first form will stay the position where it created.
+<br> The last two forms will make the graphics card place the data in memory that allows for faster writes.
+<h3> In this step <b>VERTEX INPUT</b> we stored the vertex data within memory on the graphics card as managed by a vertex buffer object named VBO. Next we want to create a vertex and fragment shader that actually processes this data</h3>
+<br>
+# VERTEX SHADER
