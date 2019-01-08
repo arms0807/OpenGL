@@ -13,7 +13,8 @@ Graphics cards of today have thousands of small processing cores to quickly proc
 Some of these shaders are configurable by the developer which allows us to write our own shaders to replace the existing default shaders.<h4>Shaders are written in the OpenGL Shading Language (GLSL)</h4>
 
 Representation of Pipeline: VERTEX DATA -> <b>VERTEX SHADER</b> -> SHAPE ASSEMBLY -> <b>GEOMETRY SHADER</b> -> RASTERIZATION -> <b>FRAGMENT SHADER</b> -> TESTS AND BLENDING
-<br><b>The bold text are configurable by users, which users can inject their own shaders. </b>
+<br>
+<b>The bold text are configurable by users, which users can inject their own shaders. </b>
 
 The first VERTEX DATA is the input from user, which should be vertex type. The vertex is the attribute of shape containing 3D position and color value. <br>We can use some hints like GL_POINTS, GL_TRIANGLES AND GL_LINE_STRIP to draw the exact types or shapes we want.
 <br><br>
@@ -31,6 +32,18 @@ The main purpose of <b>FRAGMENT SHADER</b> is to calculate the final color of a 
 <br><br>
 The final stage <b>ALPHA TEST AND BLENDING</b> checks the corresponding depth value of the fragment and uses those to check if the resulting fragment is in front or behind other objects and should be discarded accordingly. This stage also checks for alpha values and blends the objects accordingly. Therefore even if a pixel output color is calculated in the fragment shader, the final pixel color could still be something entirely different when rendering multiple triangles.
 <br><br>
-Modern OpenGL users are required to define at least a vertex and fragment shader of our own because there are no default vertex/fragment shaders on the GPU.
+<b>RModern OpenGL users are required to define at least a vertex and fragment shader of our own because there are no default vertex/fragment shaders on the GPU.</b>
 <br><br>
-#Vertex Input
+# Vertex Input
+OpenGL is 3D graphics library so all coordinates that we specify in OpenGL are in 3D(x, y, and z coordinate). OpenGL doesn't simply transform all your 3D coordinates to 2D pixels on your screen; OpenGL only processes 3D coordinates when they're in a specific range between -1.0 and 1.0 on all 3 axes(x, y and z). All coordinates within this so called normalized device coordinates range will end up visible on your screen (and all coordinates outside this region won't).
+<br><br>
+<b>Normalized Device Coordinates(NDC)</b> 
+<br>Unlike usual screen coordinates the positive y-axis points in the up-direction and the (0, 0) coordinates are at the center of the graph, instead of top-left. NDC coordinates will then be transformed to screen-space coordinates via the viewport transform using the data you provided with glViewport.
+<br><br>
+Send the vertex data to the input of the <b>VERTEX SHADER</b>. This is done by creating memory on the GPU where we store the vertex data.
+<br>Users manage this memory via so called vertex buffer objects(VBO) that can store a large number of vertices in the GPU's memory. The advantage of using VBO is we can send large batches of data all at once. Sending data to the graphics card from the CPU is relatively slow so it tries to send as much data as possible at once. Once the data is in the graphics card's memory the vertex shader has almost instant access to the vertices making it extremely fast.
+<br><br>
+VBO is like any object in OpenGL, having a unique ID corresponding to that buffer, so we can generate one with a buffer  ID using the glGenBuffers function: 
+<br><b>Example</b>
+<br>unsigned int VBO;
+<br>glGenBuffers(1, &VBO);
