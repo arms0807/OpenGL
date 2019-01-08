@@ -33,4 +33,4 @@ The final stage <b>ALPHA TEST AND BLENDING</b> checks the corresponding depth va
 <br><br>
 Modern OpenGL users are required to define at least a vertex and fragment shader of our own because there are no default vertex/fragment shaders on the GPU.
 <br><br>
-Refernece : https://learnopengl.com/Getting-started/Hello-Triangle
+#Vertex Input
