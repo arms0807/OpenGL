@@ -69,6 +69,9 @@ glBufferData is a function specifically targeted to ccopy user-defined data into
 # VERTEX SHADER
 At least two SHADERS are required by Modern OpenGL, VERTEX and FRAGMENT SHADERS, from users. VERTEX SHADER is written in shader language GLSL( OpenGL shading language) and then compile this shader.
 <br><b>Example</b>
+<br>#version 330 core
 <br>layout (location = 0) in vec3 aPos;
 <br>void main(){gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);}
 <br><br>
+The first line <b>#version 330 core</b> is to clarify the version of shader.<br>
+The second line is to declare all the input vertex attributes in the vertex shader with the in keyword. The <b>vec3</b> is a vector type which contains 3 parameters. In this case we initiate aPos as a variable.<br>
