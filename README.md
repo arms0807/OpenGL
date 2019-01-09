@@ -65,4 +65,10 @@ glBufferData is a function specifically targeted to ccopy user-defined data into
 <br> The last two forms will make the graphics card place the data in memory that allows for faster writes.
 <h3> In this step <b>VERTEX INPUT</b> we stored the vertex data within memory on the graphics card as managed by a vertex buffer object named VBO. Next we want to create a vertex and fragment shader that actually processes this data</h3>
 <br>
+
 # VERTEX SHADER
+At least two SHADERS are required by Modern OpenGL, VERTEX and FRAGMENT SHADERS, from users. VERTEX SHADER is written in shader language GLSL( OpenGL shading language) and then compile this shader.
+<br><b>Example</b>
+<br>layout (location = 0) in vec3 aPos;
+<br>void main(){gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);}
+<br><br>
