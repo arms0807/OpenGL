@@ -74,4 +74,16 @@ At least two SHADERS are required by Modern OpenGL, VERTEX and FRAGMENT SHADERS,
 <br>void main(){gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);}
 <br><br>
 The first line <b>#version 330 core</b> is to clarify the version of shader.<br>
-The second line is to declare all the input vertex attributes in the vertex shader with the in keyword. The <b>vec3</b> is a vector type which contains 3 parameters. In this case we initiate aPos as a variable.<br>
+The second line is to declare all the input vertex attributes in the vertex shader with the in keyword.<br>
+The <b>vec3</b> is a vector type which contains 3 parameters. In this case we initiate aPos as a variable.<br>
+The layout (location = 0) is to set the location of the input variable.<br>
+<br>
+Note: A vector in GLSL has a maximum size of 4 and each of its values can be retrieved via vec.x, vec.y, vec.z, vec.w. The first three are position and the last one is called perspective division.
+<br>
+The output of vertex shader we use gl_Position to complete it. The vector size is 4 (<b>vec4</b>), however, we only got 3 parameteres. Therefore, the last one we set it into 1.0f.
+<br>
+Note: In real applications the input data is not usually not already in normalized device coordinates so we first have to transform the input data to coordinates that fall wihtin OpenGL's visible region.
+<br>
+
+# COMPILING A SHADER
+
