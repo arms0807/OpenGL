@@ -144,3 +144,12 @@ Now we need to attach the previously compiled shaders to the program object<br>
 <br>glAttachShader(shaderProgram, vertexShader);
 <br>glAttachShader(shaderProgram, fragmentShader);
 <br>glLinkProgram(shaderProgram);<br>
+Note: Like shader compilation, we can check if it is success or not by using glGetShaderiv and glGetShaderInfoLog.<br>
+Finally, we have to activate the program object by calling glUseProgram<br>
+<b>EXAMPLE</b>
+<br>glUseProgram(shaderProgram); // Every shader and rendering call after glUseProgram will now use this program object<br>
+After glUseProgram called, we can delete the shaders we created previously.
+<b>EXAMPLE</b>
+<br>glDeleteShader(vertexShader);<br>
+glDeleteShader(fragmentShader); <br>
+<b>Note: Right now we sent the input vertex data to the GPU and instructed the GPU how it should process the vertex data within a vertex and fragment shader. But OpenGL does not yet know how it should interpret the vertex data in memory and how it should connect the vertex data to the vertex shader's attributes.</b>
