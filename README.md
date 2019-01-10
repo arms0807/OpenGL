@@ -86,4 +86,61 @@ Note: In real applications the input data is not usually not already in normaliz
 <br>
 
 # COMPILING A SHADER
+After wrote the source code for the vertex shader, in order for OpenGL to use the shader it has to dynamically compile it at run-time from its source code.<br>
+First of all, users need to create a shader object, again referenced by an ID.
+We store the vertex shader as an unsigned int and create the shader with <b>glCreateShader</b><br>
+<b>Example</b>
+<br>unsigned int vertexShader;<br>
+vertexShader = glCreateShader(GL_VERTEX_SHADER);
+<br>
+The argument in glCreateShader is the type of shader.<br>
+Next attach the shader source code to the shader object and compile the shader<br>
+<b>Example</b>
+<br>glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+<br>glCompileShader(vertexShader);
+<br>
+The glShaderSource function takes the shader object to compile to as its first argument. <br>
+The second argument speicifies how many strings we're passing as source code. <br>
+The third argument is the actual source code of the vertex shader.<br>
+<br>
+The following is to check if compilation was successful after the call to glCompileShader.
+<br>
+int success; // this is for indicating success<br>
+char infoLog[512]; // container for the error messages<br>
+glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success); //check if compilation was successful<br>
+<br>
+if(!success){<br>
+glGetShaderInfoLog(vertexShader, 512, NULL, infoLog); // glGetShaderInfoLog for retrieving the error message<br>
+cout<<"Error"<<infoLog<<endl;}
+<br>
 
+#  FRAGMENT SHADER
+This step is all about calculating the color output of your pixels. Fragment shader will always output an orangeish color. <br>
+Note: Colors in computer graphics are represented as an array of 4 values: Red, Green, Blue and alpha(opacity). The range of value will be 0.0f~1.0f.
+<br>
+<b>EXAMPLE</b><br>
+#version 330 core // declare the version<br>
+out vec4 FragColor; // declare output values with the out keyword<br><br>
+void main(){<br>
+FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f); // <br>
+}<br>
+Note: The process for compiling a fragment shader is similar to the vertex shader, but the function will be used GL_FRAGMENT_SHADER<br>
+<b>EXAMPLE</b>
+<br>unsigned int fragmentShader;<br>
+fragmentShader = glCreateShader(GL_FRAMGMENT_SHADER);<br>
+glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);<br>
+glCompileShader(fragmentShader);<br>
+Note: Both Shaders are now compiled and the last thing is to link both shader objects into a shader program which we can use for rendering<br>
+
+# SHADER PROGRAM
+This is the last step. To use the recently compiled shaders we have to link them to a shader program object and then activate this shader program when rendering objects. The activated shader program's shaders will be used when we issue render calls.<br>
+The linking means the output of previous step need to attach to the input of current step.<br>
+First create program object.<br>
+<b>EXAMPLE</b>
+<br>unsigned int shaderProgram;<br>
+shaderProgram = glCreateProgram(); // The glCreateProgram creates a program and returns the ID reference to the newly created program object<br>
+Now we need to attach the previously compiled shaders to the program object<br>
+<b>EXAMPLE</b>
+<br>glAttachShader(shaderProgram, vertexShader);
+<br>glAttachShader(shaderProgram, fragmentShader);
+<br>glLinkProgram(shaderProgram);<br>
