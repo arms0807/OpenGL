@@ -153,3 +153,5 @@ After glUseProgram called, we can delete the shaders we created previously.
 <br>glDeleteShader(vertexShader);<br>
 glDeleteShader(fragmentShader); <br>
 <b>Note: Right now we sent the input vertex data to the GPU and instructed the GPU how it should process the vertex data within a vertex and fragment shader. But OpenGL does not yet know how it should interpret the vertex data in memory and how it should connect the vertex data to the vertex shader's attributes.</b>
+
+# LINKING VERTEX ATTRIBUTES
